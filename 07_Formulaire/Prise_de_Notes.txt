@@ -1,0 +1,50 @@
+https://courses.boxydev.com/php/programmation-objet/espaces-de-noms.html#tp-un-formulaire
+
+TP : Un formulaire
+
+Pour revenir un peu au web, nous allons créer une classe nous permettant de gagner du temps dans la conception d'un formulaire. Voici un exemple d'utilisation de la classe :
+
+<?php 
+$form = new Form();
+
+$form
+    ->input('email')
+    ->input('subject')
+    ->textarea('message')
+    ->button('Envoyer')
+;
+
+echo $form; // Affichera le formulaire
+// On pourra soumettre le formulaire
+// et les données saisies resteront dans les champs.
+// Une méthode nous permettra de récupérer les données du formulaire
+
+if ($form->isSubmit()) {
+    /**
+     * ['email' => '...', 'subject' => '...', 'message' => '...']
+     */
+    var_dump($form->getData());
+}
+?>
+
+________________________________________________
+
+On include le Form.php, la classe qui représente un formulaire pour un site web.
+
+Pour s'occuper des champs du formulaire on a le tableau $fields. 
+Donc on en revient à l'index.php et on créé notre formulaire,
+$form = new Form();
+Du coup dans le fichier Form.php, on utilise la méthode magique 
+http://php.net/manual/fr/language.oop5.php
+http://php.net/manual/fr/language.oop5.magic.php
+"La méthode __toString() détermine comment l'objet doit réagir lorsqu'il est traité comme une chaîne de caractères. Par exemple, ce que echo $obj; affichera. Cette méthode doit retourner une chaîne, sinon une erreur E_RECOVERABLE_ERROR sera levée. 
+
+On commence à configurer le formulaire et ses champs en créant la méthode input. Elle prend un le name du champ <input name="...">
+L'appelle de la méthode input permet d'ajouter autant de champ que l'on désire, ça les génère avec la balise (le tag) input, et le name de la balise.
+
+
+
+
+
+
+

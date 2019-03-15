@@ -20,6 +20,6 @@ class Circle extends Form
    
     public function air()
     {
-        return $this->rayon ^ 2 * pi();
+        return $this->rayon ** 2 * pi();
     }
 }

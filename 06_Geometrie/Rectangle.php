@@ -8,7 +8,7 @@ class Rectangle extends Form
     // périmètre d'un rectangle = ( largeur + longueur )× 2
     public function __construct($largeur_param, $longueur_param)
     {
-        $this->largeur = $longueur_param;
+        $this->largeur = $largeur_param;
         $this->longueur = $longueur_param;
     }
     public function perimeter()
