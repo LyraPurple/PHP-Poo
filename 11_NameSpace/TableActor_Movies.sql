@@ -1,0 +1,57 @@
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+
+CREATE TABLE `actor` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `lastname` varchar(45) NOT NULL,
+  `firstname` varchar(45) NOT NULL,
+  `birthday` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `movie` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `title` varchar(45) NOT NULL,
+  `synopsys` text NOT NULL,
+  `released_at` date NOT NULL,
+  `category` varchar(45) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `movie_has_actor` (
+  `id_movie` int(10) UNSIGNED NOT NULL,
+  `id_actor` int(10) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+ALTER TABLE `actor`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `idActor_UNIQUE` (`id`);
+
+ALTER TABLE `movie`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id_UNIQUE` (`id`);
+
+ALTER TABLE `movie_has_actor`
+  ADD KEY `id_movie_idx` (`id_movie`,`id_actor`),
+  ADD KEY `id_actor_idx` (`id_actor`);
+
+
+ALTER TABLE `actor`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+ALTER TABLE `movie`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+
+ALTER TABLE `movie_has_actor`
+  ADD CONSTRAINT `id_actor` FOREIGN KEY (`id_actor`) REFERENCES `actor` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `id_movie` FOREIGN KEY (`id_movie`) REFERENCES `movie` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

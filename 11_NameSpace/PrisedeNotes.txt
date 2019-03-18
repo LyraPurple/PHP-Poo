@@ -1,0 +1,8 @@
+$query = Database::getInstance()->query('SELECT * FROM movie');
+Database::getInstance En faisant ça, il n'aura plus à faire
+$database = new DataBase;
+On n'a plus à instancier la Database.
+Ce n'est pas propre de faire la classe dans le même fichier,
+mais pour une raison de lecture claire à notre niveau, on déclare notre classe":
+Voire classe Singleton https://fr.wikipedia.org/wiki/Singleton_(patron_de_conception)#PHP_5
+Avec Database::getInstance, notre Singleton, on aura accès n'importe où à notre connection.
