@@ -12,9 +12,9 @@
 
 <!-- Récupérer le lien en dynamique, mettre l'url dans notre href -->
 <?php 
-    // var_dump($_SERVEUR);
+    // var_dump($_SERVER);
     $scheme = $_SERVER['REQUEST_SCHEME']; //http
-    $host = $_SERVER['SERVEUR_NAME']; //localhost
+    $host = $_SERVER['SERVER_NAME']; //localhost
     $path = $_SERVER['SCRIPT_NAME']; //poo/11-movies/public/index.php
     $baseUrl = $scheme . '://' .$host  .$path;
 ?>
