@@ -1,0 +1,96 @@
+Dans le projet : https://github.com/diw-11/poo-php/tree/master/11-movies
+
+On a config/autoload.php
+<?php
+/**
+ * Cette fonction s'occupe de charger automatiquement nos classes PHP
+ */
+spl_autoload_register(function ($class) {
+    // Fix bug on macOS or Linux
+    $class = str_replace('\\', DIRECTORY_SEPARATOR, $class);
+    require __DIR__ . '/../src/' . $class . '.php';
+}); ?>
+
+C'est notre spl_autoload_register qui nous permet d'éviter les require_once.
+
+Ensuite on a views/home.php
+<?php
+require_once __DIR__ . '/header.php';
+echo '<h1>Page d\'accueil</h1>';
+require_once __DIR__ . '/footer.php';   ?>
+
+Donc là on fait en sorte d'avoir notre html-header et notre html-footer sur toutes les pages, sans avoir à le copiay à chaque fois. On n'a plus qu'à gérer le contenu.
+
+On a notre src/Database.php
+<?php
+class Database
+{
+    private static $pdo;
+    public static function getInstance()
+    {
+        if (null === self::$pdo) { // On s'assure que la connexion à la BDD se fait une seule fois
+            self::$pdo = new PDO('mysql:host=mysql.docker;dbname=movies;charset=utf8', 'root', 'root', [
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+            ]);
+        }
+        return self::$pdo;
+    }
+} ?>
+C'est notre connexion encapsulé dans Database, qui fait qu'on n'a plus à PDO.
+
+public/index.php
+<?php
+require_once __DIR__ . '/../config/autoload.php';
+$uri = $_SERVER['PATH_INFO'] ?? '/';
+// On teste si on est sur la page d'accueil
+if ($uri === '/') {
+    require_once __DIR__ . '/../views/home.php';
+}   ?>
+Notre index appel spl_autoload_register pour que tout soit chargé dès que besoin,
+et notre home.php pour avoir notre header et footer partout.
+
+
+
+------------------------------------------------------------------
+On va décortiquay
+<?php 
+spl_autoload_register(function ($classounettes) {
+    // Fix bug on macOS or Linux
+    $classounettes = str_replace('\\', DIRECTORY_SEPARATOR, $classounettes);
+    require __DIR__ . '/../src/' . $classounettes . '.php';
+});
+?>
+
+<?php 
+    require 
+?>
+C'pour dire d'aller charger/trouver la réponse dans un autre fichier,
+Genre: Comprendre ce fichier requier d'avoir pris connaissance de la classe DANS cet autre fichier.
+
+<?php 
+     __DIR__ . '/../src/' 
+?>
+__DIR__ Veut dire: Attention, cheming absolue, Genre __DIR__ signifie: \  (<- Racine de le projet)
+
+<?php 
+   '/../src/' . $classounettes . '.php';
+?>
+Easy, c'est qu'on concatène le chemin précis de notre répertoire de classes,
+On a fait attention de bien nommer le fichier comme la classe en question sinon ça explose,
+(Je l'ai devinay/imaginay toute seule, mais je constate bieng je pense),
+et on concatène l'extension php pour finir le dossiay.
+
+------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
